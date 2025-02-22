@@ -1,0 +1,22 @@
+// Project-level build.gradle
+allprojects {
+    
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+
+// Update subprojects settings
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+
+    // Ensure app project dependencies are evaluated first
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
